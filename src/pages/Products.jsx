@@ -30,6 +30,15 @@ const filteredProducts = products.filter((product) => {
               onChange={(e) => setSearch(e.target.value)}
               className="w-full max-w-md border border-gray-300 rounded-lg px-4 py-3 mb-8"
             />
+                  <button
+                    onClick={() => {
+                      setSearch("");
+                      setCategory("All");
+                    }}
+                    className="bg-gray-800 text-white px-4 py-3 rounded-lg hover:bg-gray-900"
+                  >
+                    Clear Filters
+                  </button>
             <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
@@ -41,19 +50,28 @@ const filteredProducts = products.filter((product) => {
                 <option value="Accessories">Accessories</option>
               </select>
         </h1>
-   
 
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-       {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-            />
-          ))}
+                      {filteredProducts.length === 0 ? (
+                        <div className="text-center py-16">
+                          <h2 className="text-2xl font-semibold text-gray-800">
+                            No products found
+                          </h2>
 
-        </div>
+                          <p className="text-gray-500 mt-2">
+                            Try a different search or category.
+                          </p>
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                          {filteredProducts.map((product) => (
+                            <ProductCard
+                              key={product.id}
+                              product={product}
+                            />
+                          ))}
+                        </div>
+                      )}
 
       </div>
 
