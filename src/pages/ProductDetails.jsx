@@ -105,7 +105,24 @@ function ProductDetails() {
       quantity: quantity,
     };
 
-    setCart([...cart, cartItem]);
+  const existingItem = cart.find(
+  (item) => item.id === product.id
+);
+
+if (existingItem) {
+  setCart(
+    cart.map((item) =>
+      item.id === product.id
+        ? {
+            ...item,
+            quantity: item.quantity + quantity,
+          }
+        : item
+    )
+  );
+} else {
+  setCart([...cart, cartItem]);
+}
 
     alert("Product added to cart!");
   }}
