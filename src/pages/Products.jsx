@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 
-import products from "../data/products";
 import ProductCard from "../components/ProductCard";
 
 
@@ -8,6 +7,14 @@ function Products() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [sort, setSort] = useState("default");
+const [products, setProducts] = useState([]);
+useEffect(() => {
+  fetch("http://localhost:5001/api/products")
+    .then((response) => response.json())
+    .then((data) => {
+      setProducts(data);
+    });
+}, []);
 const filteredProducts = products.filter((product) => {
   const matchesSearch = product.name
     .toLowerCase()
